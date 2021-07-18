@@ -35,7 +35,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'gradle bootBuildImage'
-                sh 'docker build -t .'
+                sh 'docker build -t springboot-jenkins:1.0.0 .'
             }
         }
 
