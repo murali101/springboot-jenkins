@@ -32,26 +32,9 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
-        }
-
-        stage('Deploy Image') {
-            steps {
-                script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
-                         dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Clean Up') {
-            steps {
-                sh 'docker rmi $registry:$BUILD_NUMBER'
+                sh 'docker build -t mkrishnap/springboot-jenkins:1.0.0 .'
             }
         }
 
