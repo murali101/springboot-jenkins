@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent any {
+        Dockerfile true
+    }
 
     environment {
         registry = "https://registry.hub.docker.com/mkrishnap"
