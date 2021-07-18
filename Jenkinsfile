@@ -26,6 +26,9 @@ pipeline {
         }
 
          stage('Input Details') {
+            when {
+                     branch 'production'
+                 }
              input {
                  message "Should we continue?"
                  ok "Yes, we should."
