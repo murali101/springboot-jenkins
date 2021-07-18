@@ -29,7 +29,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'gradle clean build'
-                sh 'docker -v'
+                sh 'docker version'
             }
         }
         stage('Build Image') {
