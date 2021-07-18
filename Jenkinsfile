@@ -1,5 +1,7 @@
 pipeline {
     agent any
+
+
     tools {
         gradle 'gradle-711'
     }
@@ -26,7 +28,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build --build-arg JAR_FILE=build/libs/*.jar -t springboot-jenkins:latest .'
+                sh 'docker build -t mkrishnap/springboot-jenkins .'
             }
         }
 
