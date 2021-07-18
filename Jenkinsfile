@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'gradle buildImage'
+                sh 'gradle bootBuildImage'
             }
         }
 
