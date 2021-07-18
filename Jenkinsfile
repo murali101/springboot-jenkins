@@ -29,6 +29,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'gradle clean build'
+                sh 'docker build -t .'
             }
         }
 
