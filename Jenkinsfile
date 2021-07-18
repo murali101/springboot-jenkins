@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-    def app
-
     tools {
         gradle 'gradle-711'
     }
