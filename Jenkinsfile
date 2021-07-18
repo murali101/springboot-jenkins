@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        imagename = "mkrishnap/springboot-jenkins"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
 
     tools {
         gradle 'gradle-711'
@@ -28,7 +33,19 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t mkrishnap/springboot-jenkins .'
+                script {
+                    dockerImage = docker.build imagename
+                }
+            }
+        }
+        stage('Deploy Image') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
 
