@@ -20,9 +20,6 @@ pipeline {
             }
         }
         stage('Build') {
-            tools {
-                gradle 'gradle-711'
-            }
             steps {
                 sh 'gradle clean build'
             }
