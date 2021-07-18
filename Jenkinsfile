@@ -34,7 +34,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker bootBuildImage'
+                sh 'gradle bootBuildImage'
             }
         }
 
