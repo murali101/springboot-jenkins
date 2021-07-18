@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Source') {
             steps {
-                checkout SCM
+                git 'https://github.com/murali101/springboot-jenkins.git'
             }
         }
         stage('Assemble') {
