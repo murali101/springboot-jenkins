@@ -6,13 +6,18 @@ pipeline {
     }
 
     stages {
-            stage('Checkout') {
-                steps { //Checking out the repo
-                    git 'https://github.com/murali101/springboot-jenkins.git'
-                    def gradleHome = tool 'gradle-711'
-                    sh "'${gradleHome}/bin/gradle' --v"
-                    sh "'${gradleHome}/bin/gradle' clean compileJava test"
-                }
+        stage('Source') {
+            steps {
+                git 'https://github.com/murali101/springboot-jenkins.git'
             }
-      }
+        }
+        stage('Compile') {
+            tools {
+                gradle 'gradle-711'
+            }
+            steps {
+                sh 'gradle clean compileJava test'
+            }
+        }
+     }
 }
