@@ -30,6 +30,9 @@ pipeline {
             steps {
                 sh 'gradle clean build'
             }
+        }
+
+        stage('Build Image') {
             script {
                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
             }
