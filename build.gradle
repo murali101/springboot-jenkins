@@ -21,6 +21,3 @@ test {
     useJUnitPlatform()
 }
 
-bootBuildImage {
-    imageName = "mkrishnap/springboot-jenkins"
-}
