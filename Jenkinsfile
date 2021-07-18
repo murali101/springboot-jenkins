@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'gradle bootBuildImage'
+                sh 'docker build --build-arg JAR_FILE=build/libs/\*.jar -t springboot-jenkins:latest .'
             }
         }
 
