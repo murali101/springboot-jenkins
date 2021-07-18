@@ -16,7 +16,7 @@ pipeline {
                 gradle 'gradle-711'
             }
             steps {
-                sh 'gradle clean build'
+                sh './gradlew clean build'
             }
         }
      }
