@@ -6,15 +6,17 @@ pipeline {
     }
 
     stages {
+        stage('env setup') {
+            tools {
+                 gradle 'gradle-711'
+             }
+        }
         stage('Source') {
             steps {
                 git 'https://github.com/murali101/springboot-jenkins.git'
             }
         }
         stage('Compile') {
-            tools {
-                gradle 'gradle-711'
-            }
             steps {
                 sh 'gradle clean build'
             }
