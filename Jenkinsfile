@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        registry = "https://registry.hub.docker.com/mkrishnap"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
+
     tools {
         gradle 'gradle-711'
     }
@@ -24,17 +30,23 @@ pipeline {
             steps {
                 sh 'gradle clean build'
             }
+            script {
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            }
         }
 
         stage('Deploy Image') {
             steps {
                 script {
                     docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
-                         def customImage = docker.build("springboot-jenkins:${env.BUILD_ID}")
-
-                         customImage.push()
+                         dockerImage.push()
                     }
                 }
+            }
+        }
+        stage('Clean Up') {
+            steps {
+                sh 'docker rmi $registry:$BUILD_NUMBER'
             }
         }
 
