@@ -1,11 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        imagename = "mkrishnap/springboot-jenkins"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
-    }
+    def app
 
     tools {
         gradle 'gradle-711'
@@ -18,7 +14,7 @@ pipeline {
     stages {
         stage('Source') {
             steps {
-                git 'https://github.com/murali101/springboot-jenkins.git'
+                checkout SCM
             }
         }
         stage('Assemble') {
@@ -29,22 +25,21 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'gradle clean build'
-                sh 'docker version'
             }
         }
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build imagename
+                    app = docker.build("springboot-jenkins")
                 }
             }
         }
         stage('Deploy Image') {
             steps {
                 script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push('latest')
+                    docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
                     }
                 }
             }
