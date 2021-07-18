@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        gradle 'gradle-711'
+    }
 
     triggers {
         pollSCM '* * * * *'
@@ -12,9 +15,6 @@ pipeline {
             }
         }
         stage('Assemble') {
-            tools {
-                gradle 'gradle-711'
-            }
             steps {
                 sh 'gradle clean assemble'
             }
