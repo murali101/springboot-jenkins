@@ -33,8 +33,10 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t mkrishnap/springboot-jenkins:1.0.0 .'
+            agent {
+                docker {
+                        sh 'docker build -t mkrishnap/springboot-jenkins:1.0.0 .'
+                    }
             }
         }
 
