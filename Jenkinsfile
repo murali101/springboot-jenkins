@@ -24,6 +24,11 @@ pipeline {
                 sh 'gradle clean build'
             }
         }
+        stage('Build Image') {
+            steps {
+                sh 'gradle buildImage'
+            }
+        }
 
          stage('Input Details') {
             when {
