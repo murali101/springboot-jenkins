@@ -27,19 +27,14 @@ pipeline {
                 sh 'gradle clean build'
             }
         }
-        stage('Build Image') {
-            steps {
-                script {
-                    app = docker.build("springboot-jenkins")
-                }
-            }
-        }
+
         stage('Deploy Image') {
             steps {
                 script {
                     docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                         def customImage = docker.build("springboot-jenkins:${env.BUILD_ID}")
+
+                         customImage.push()
                     }
                 }
             }
