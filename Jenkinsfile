@@ -39,7 +39,7 @@ pipeline {
             }
         }
         stage('Build application') {
-            container('docker') {
+            steps {
                 dockerImage = docker.build("mkrishnap/springboot-jenkins", ".")
             }
         }
