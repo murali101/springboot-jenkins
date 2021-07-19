@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-jenkins
+  labels:
+    app: springboot-jenkins
+spec:
+  selector:
+    matchLabels:
+      app: springboot-jenkins
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: springboot-jenkins
+    spec:
+      containers:
+        - name: springboot-jenkins
+          image: docker.io/library/springboot-jenkins
+          ports:
+            - containerPort: 8080

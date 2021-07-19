@@ -38,5 +38,11 @@ pipeline {
                 sh 'docker build -t springboot-jenkins:1.0.0 .'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f Kubernetes.yaml'
+            }
+        }
      }
 }
