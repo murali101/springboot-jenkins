@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        registry = "https://registry.hub.docker.com/mkrishnap/springboot-jenkins"
+        registry = "mkrishnap/springboot-jenkins"
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -43,7 +43,7 @@ pipeline {
         stage('Publish Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('', registryCredential ) {
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
                          def app = docker.build("mkrishnap/springboot-jenkins", ".")
                          echo "Pushing 2..."
                          // Push latest-tagged version
