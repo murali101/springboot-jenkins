@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: springboot-jenkins
-          image: docker.io/library/springboot-jenkins
+          image: mkrishnap/springboot-jenkins:latest
           ports:
             - containerPort: 8080

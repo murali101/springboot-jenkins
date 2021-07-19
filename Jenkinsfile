@@ -35,22 +35,16 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'gradle bootBuildImage'
-                sh 'docker build -t springboot-jenkins:1.0.0 .'
+                sh 'docker build -t springboot-jenkins:latest .'
 
             }
         }
 
         stage('Publish Docker Image') {
             steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
-                         def app = docker.build("mkrishnap/springboot-jenkins", ".")
-                         echo "Pushing 2..."
-                         // Push latest-tagged version
-                         app.push("latest")
-                         echo "Pushed!"
-                    }
-                }
+                sh 'docker login -u mkrishnap -p abcd@1234'
+                sh 'docker tag springboot-jenkins mkrishnap/springboot-jenkins'
+                sh 'docker push mkrishnap/springboot-jenkins'
             }
         }
 
