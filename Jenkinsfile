@@ -43,7 +43,7 @@ pipeline {
         stage('Publish Docker Image') {
             steps {
                 script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
+                    docker.withRegistry( 'https://registry.hub.docker.com', 'registryCredential' ) {
                          def app = docker.build("mkrishnap/springboot-jenkins", ".")
                          echo "Pushing 2..."
                          // Push latest-tagged version
