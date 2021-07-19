@@ -36,10 +36,8 @@ pipeline {
             steps {
                 sh 'gradle bootBuildImage'
                 sh 'docker build -t springboot-jenkins:1.0.0 .'
-                dockerImage = docker.build("mkrishnap/springboot-jenkins", ".")
             }
         }
-
 
         stage('Build Docker Image') {
             steps {
