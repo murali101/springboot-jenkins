@@ -38,6 +38,23 @@ pipeline {
                 sh 'docker build -t springboot-jenkins:1.0.0 .'
             }
         }
+        stage('Build application') {
+            container('docker') {
+                app = docker.build("mkrishnap/springboot-jenkins", ".")
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
+                         docker.image('springboot-jenkins').inside {
+                                     sh 'make test'
+                         }
+                    }
+                }
+            }
+        }
 
         stage('Deploy') {
             steps {
