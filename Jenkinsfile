@@ -36,16 +36,19 @@ pipeline {
             steps {
                 sh 'gradle bootBuildImage'
                 sh 'docker build -t springboot-jenkins:1.0.0 .'
+                dockerImage = docker.build("mkrishnap/springboot-jenkins", ".")
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Publish Docker Image') {
             steps {
                 script {
                     docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
-                         docker.image('springboot-jenkins').inside {
-                                     sh 'make test'
-                         }
+                         dockerImage.push("${env.BUILD_NUMBER}")
+                         echo "Pushing 2..."
+                         // Push latest-tagged version
+                         dockerImage.push("latest")
+                         echo "Pushed!"
                     }
                 }
             }
