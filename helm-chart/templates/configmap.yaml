@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: springboot-jenkins-configmap
-data:
-  myvalue: "Hello World springboot jenkins project"

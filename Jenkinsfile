@@ -48,9 +48,17 @@ pipeline {
             }
         }
 
+        stage('Chart') {
+                    steps {
+                        sh 'helm create springboot-jenkins'
+                        sh 'helm lint ./springboot-jenkins'
+                        sh 'helm install --dry-run -name springboot-jenkins ./springboot-jenkins'
+                    }
+                }
+
         stage('Deploy') {
             steps {
-                sh 'kubectl apply -f Kubernetes.yaml'
+                sh 'helm install -name springboot-jenkins ./springboot-jenkins'
             }
         }
      }
