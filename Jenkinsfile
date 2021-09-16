@@ -1,5 +1,6 @@
 
-
 env.BRANCH_NAME="master"
 
-@Library('jenkins-shared-lib') _
+@Library('jenkins-shared-lib')
+
+generalPipeline()
